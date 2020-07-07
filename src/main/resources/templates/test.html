@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="/static/favicon.ico"/>
+    <title>Travel</title>
+</head>
+<body>
+    <button id="btn">登录</button>
+    <button id="reg">注册</button>
+    <button id="rot">路线</button>
+    <button id="del">删除</button>
+    <button id="mod">修改</button>
+    <button id="rsv">预定</button>
+    <button id="bil">账单</button>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $("#btn").click(function (e) {
+            $.post({
+                url: "/user/login",
+                contentType: "application/x-www-form-urlencoded",
+                data: {
+                    phone: "01234567890",
+                    password: "password",
+                    flag: 1
+                },
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            })
+        });
+
+        $("#reg").click(function (e) {
+            $.post({
+                url: "/user/aRegister",
+                // contentType: "application/x-www-form-urlencoded"
+                data: {
+                    name: "test",
+                    // sex: "女",
+                    // card: "123123123112311233",
+                    address: "NO.1 stree",
+                    phone: "01234567891",
+                    password: "password"
+                },
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            })
+        });
+
+        $("#rot").click(function (e) {
+            $.get({
+                url: "/route/allRoutes",
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        });
+
+        $("#del").click(function(e) {
+            $.get({
+                url: "/route/delRoute",
+                data: {
+                    id: 2
+                },
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        });
+
+        $("#mod").click(function (e) {
+            $.post({
+                url: "/route/modRoute",
+                data: {
+                    id: 2,
+                    name: "test",
+                    flight: "test",
+                    flightPrice: 480,
+                    hotel: "test",
+                    hotelPrice: 480,
+                    time: "2019-12-04 23:03:37",
+                    period: 3,
+                    other: "480"
+                },
+                success: function (res) {
+                    console.log(res)
+                }
+            });
+        });
+
+        $("#rsv").click(function (e) {
+            $.post({
+                url: "/route/reserve",
+                data: {
+                    userId: 1,
+                    routeId: 1
+                },
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        });
+
+        $("#bil").click(function (e) {
+            $.post({
+                url: "/route/myBill",
+                data: {
+                    userId: 1
+                },
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
